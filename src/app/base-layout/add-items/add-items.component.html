@@ -1,0 +1,78 @@
+<div class="card">
+    <h5 class="card-header">Details Form</h5>
+    <div class="card-body">
+        <form [formGroup]="detailsForm">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Sr. No</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Contact Number</th>
+                            <th scope="col">City Number</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let controlArr of detailsForm.controls.detailsField.controls; let i = index"
+                            formArrayName="detailsField">
+                            <td scope="row">{{i + 1}}</td>
+                            <td [formGroupName]="i">
+                                <input type="text" maxlength="20" class="form-control" formControlName="firstName">
+                                <div *ngIf="controlArr.controls.firstName.touched && controlArr.controls.firstName.invalid"
+                                    class="error-class">
+                                    <div *ngIf="controlArr.controls.firstName.hasError('required')">
+                                        First Name is required!!
+                                    </div>
+                                </div>
+                            </td>
+                            <td [formGroupName]="i">
+                                <input type="text" maxlength="20" class="form-control" formControlName="lastName">
+                                <div *ngIf=" controlArr.controls.lastName.touched && controlArr.controls.lastName.invalid"
+                                    class="error-class">
+                                    <div *ngIf="controlArr.controls.lastName.hasError('required')">
+                                        Last Name is required!!
+                                    </div>
+                                </div>
+                            </td>
+                            <td [formGroupName]="i">
+                                <input type="text" maxlength="10" class="form-control" formControlName="contactNumber">
+                                <div *ngIf=" controlArr.controls.contactNumber.touched && controlArr.controls.contactNumber.invalid"
+                                    class="error-class">
+                                    <div *ngIf="controlArr.controls.contactNumber.hasError('required')">
+                                        Contact Number is required!!
+                                    </div>
+                                    <div *ngIf="controlArr.controls.contactNumber.hasError('pattern')">
+                                        Enter valid Contact Number!!
+                                    </div>
+                                </div>
+                            </td>
+                            <td [formGroupName]="i">
+                                <input type="text" maxlength="20" class="form-control" formControlName="city">
+                                <div *ngIf="controlArr.controls.city.touched && controlArr.controls.city.invalid"
+                                    class="error-class">
+                                    <div *ngIf="controlArr.controls.city.hasError('required')">
+                                        City is required!!
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <a (click)="removeInputField(i)" class="btn btn-icon btn-pill" data-toggle="tooltip"
+                                    title="Delete"><i class="fa fa-times" style="color: red;"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+        <div>
+            <a style="float: right" class="remove-all btn btn-icon" (click)="removeAll()">Remove All</a>
+            <a (click)="addNewInputField()" class="btn btn-icon btn-pill" data-toggle="tooltip" title="Delete"
+            style="float: right;"><i class="fa fa-plus" style="color:lightgreen;font-size: 1.5em;"></i></a>
+        </div>
+    </div>
+    <div class="card-footer">
+        <button class="button-class" mat-button (click)="submitForm()">Submit Details</button>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+@import "../../../variable.scss";
+
+.error-class{
+    color: $primary-error !important;
+}
+
+.button-class{
+    background-color: $primary-color;
+    color: $highlight-text-color;
+    float: right;
+}
+
+.remove-all{
+    color: $primary-error;
+}

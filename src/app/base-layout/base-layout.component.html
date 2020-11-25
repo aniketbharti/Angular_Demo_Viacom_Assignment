@@ -1,0 +1,65 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="'navigation'"
+        mode="over">
+        <mat-toolbar>Menu</mat-toolbar>
+        <mat-nav-list>
+            <a mat-list-item [routerLink]="['/home']" routerLinkActive="active-route">Home</a>
+            <a mat-list-item [routerLink]="['/add-list']" routerLinkActive="active-route">Add Items</a>
+            <a mat-list-item [routerLink]="['/view-list']" routerLinkActive="active-route">List Items</a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar>
+            <ng-container *ngIf="mobileview">
+                <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+                    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+                </button>
+            </ng-container>
+            <span class="title-class"><i>iDetails</i></span>
+            <div style="display:flex;width:100%;" *ngIf="!mobileview">
+                <button class="ml-3" mat-button [routerLink]="['/home']" routerLinkActive="active-route">
+                    Home
+                </button>
+                <button class="ml-3" mat-button [routerLink]="['/add-list']" routerLinkActive="active-route">
+                    Add Items
+                </button>
+                <button class="ml-3" mat-button [routerLink]="['/view-list']" routerLinkActive="active-route">
+                    List Items
+                </button>
+                <div class="spacer"></div>
+                <button class="ml-3" mat-button [matMenuTriggerFor]="appMenu">
+                    Hi User <mat-icon>arrow_drop_down</mat-icon>
+                </button>
+                <mat-menu #appMenu="matMenu" xPosition="before">
+                    <button mat-menu-item (click)="clearData()">Clear Data</button>
+                </mat-menu>
+            </div>
+        </mat-toolbar>
+        <div class="homepage-div">
+            <div class="current-page-indicator">
+                <div class="current-page-title">{{currentPageTitle}}</div>
+            </div>
+            <div class="container-class">
+                <div class="row">
+                    <div class="col-md-9">
+                        <router-outlet></router-outlet>
+                    </div>
+                    <div class="col-md-3" *ngIf="!mobileview">
+                        <div class="card card-class">
+                            <img class="card-img-top" [src]="imageUrl" alt="Card image cap" height="200px">
+                        </div>
+                        <div class="card mt-4">
+                            <p class="p-4" *ngIf="!isSomeThingWentWrong; else serverError">{{textMsg}}</p>
+                            <ng-template #serverError>
+                                <p class="p-4" style="color: red;"> Something went wrong. Please Check your Server Connection</p>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-class">
+            <div>Created as a Asignment Project</div>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
